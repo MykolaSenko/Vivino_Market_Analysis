@@ -3,9 +3,13 @@ import matplotlib.pyplot as plt
 import sqlite3
 import pandas as pd
 
+# The code `connexion = sqlite3.connect("data/vivino.db")` establishes a connection to a SQLite
+# database file named "vivino.db".
 connexion = sqlite3.connect("data/vivino.db")
 cursor = connexion.cursor()
 
+# The `query1` variable contains a SQL query that retrieves data from multiple tables in a SQLite
+# database.
 query1 = """
 SELECT
     vintages.wine_id,
@@ -24,6 +28,9 @@ GROUP BY vintages.name
 ORDER BY keywords_wine.count DESC
 """
 
+# The code `keywords = cursor.execute(query1)` executes the SQL query stored in the `query1` variable
+# using the `cursor` object. It retrieves the result set from the query, which contains the data from
+# the database tables.
 keywords = cursor.execute(query1)
 
 pd_keywords = pd.DataFrame(keywords)
@@ -32,6 +39,8 @@ pd_keywords.columns =['wine_id', 'vintages_name', 'keyword', 'keyword_count', 'k
 # Calculate the maximum value for each keyword
 max_values = pd_keywords.groupby('keyword')['keyword_count'].max()
 
+# The code block you provided is responsible for creating a bar chart using the `matplotlib.pyplot`
+# library. 
 plt.figure(figsize=(10, 6))
 bars = plt.bar(pd_keywords['keyword'], pd_keywords['keyword_count'])
 plt.xlabel('Keywords')
