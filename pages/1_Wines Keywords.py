@@ -1,11 +1,9 @@
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
-
 import sqlite3
 import pandas as pd
 
-connexion = sqlite3.connect("../data/vivino.db")
+connexion = sqlite3.connect("data/vivino.db")
 cursor = connexion.cursor()
 
 query1 = """
@@ -30,17 +28,24 @@ keywords = cursor.execute(query1)
 
 pd_keywords = pd.DataFrame(keywords)
 pd_keywords.columns =['wine_id', 'vintages_name', 'keyword', 'keyword_count', 'keyword_group']
-display(pd_keywords)
+
+# Calculate the maximum value for each keyword
+max_values = pd_keywords.groupby('keyword')['keyword_count'].max()
 
 plt.figure(figsize=(10, 6))
-plt.bar(pd_keywords['keyword'], pd_keywords['keyword_count'])
-plt.xlabel('Keyword')
+bars = plt.bar(pd_keywords['keyword'], pd_keywords['keyword_count'])
+plt.xlabel('Keywords')
 plt.ylabel('Keyword Count')
 plt.title('Keyword Counts for Wines')
 plt.xticks(rotation=45)
 plt.tight_layout()
 
+# Adding maximum value labels on top of the bars
+for bar, keyword in zip(bars, pd_keywords['keyword']):
+    if max_values[keyword] == bar.get_height():
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 5, round(yval, 2), ha='center', va='bottom', color='black', fontsize=9)
+
 # Show the histogram
-st.plt.show()
-st.sidebar.title('Choose your visualization')
-st.sidebar.selectbox('Choose one of the following', ['---------------', 'Keyword Counts for Wines', 'Keyword Count for "toast" in Top 10 Vintages', 'Keyword Count for "cintrus" in Top 10 Vintages', 'Keyword Count for "coffee" in Top 10 Vintage', 'Keyword Count for "green apple" in Top 10 Vintages', 'Keyword Count for "cream" in Top 10 Vintages', 'Top 10 Wines by Price', 'Top 10 Vintages by Year', 'Wine Prices by Year'])
+st.pyplot(plt)
+st.write('1205 different vintages have at least 10 keywords "coffee", "toast", "green apple", "cream" and "citrus".')
