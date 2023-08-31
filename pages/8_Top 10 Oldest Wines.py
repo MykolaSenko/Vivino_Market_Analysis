@@ -44,15 +44,24 @@ pd_old_10 = pd.DataFrame(old_10)
 # The line `pd_old_10.columns =['vintages.wine_id', 'vintages.name', 'vintages.year',
 # 'vintages.price_euros', 'regions.name', 'grapes.name']` is assigning new column names to the
 # DataFrame `pd_old_10`.
-pd_old_10.columns =['vintages.wine_id', 'vintages.name', 'vintages.year', 'vintages.price_euros', 'regions.name', 'grapes.name']
+pd_old_10.columns = [
+    "vintages.wine_id",
+    "vintages.name",
+    "vintages.year",
+    "vintages.price_euros",
+    "regions.name",
+    "grapes.name",
+]
 
 # The code block you provided is creating a scatter plot using matplotlib. Here's a breakdown of what
 # each line does:
 plt.figure(figsize=(15, 9))
-plt.scatter(pd_old_10['vintages.name'], pd_old_10['vintages.year'])
-plt.xlabel('Vintages')
-plt.ylabel('Year')
-plt.title('Top 10 the Oldest Vintages')
+font = {"family": "serif", "weight": "bold", "size": 22}
+plt.rc("font", **font)
+plt.scatter(pd_old_10["vintages.name"], pd_old_10["vintages.year"])
+plt.xlabel("Vintages")
+plt.ylabel("Year")
+plt.title("Top 10 the Oldest Vintages")
 plt.tight_layout()
 plt.xticks(rotation=90)
 

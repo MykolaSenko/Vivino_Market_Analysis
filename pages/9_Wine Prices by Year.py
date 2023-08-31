@@ -43,12 +43,19 @@ pd_old = pd.DataFrame(old)
 # 'vintages.price_euros', 'regions.name', 'grapes.name']` is assigning new column names to the
 # DataFrame `pd_old`. It is specifying the column names as `vintages.wine_id`, `vintages.name`,
 # `vintages.year`, `vintages.price_euros`, `regions.name`, and `grapes.name`.
-pd_old.columns =['vintages.wine_id', 'vintages.name', 'vintages.year', 'vintages.price_euros', 'regions.name', 'grapes.name']
+pd_old.columns = [
+    "vintages.wine_id",
+    "vintages.name",
+    "vintages.year",
+    "vintages.price_euros",
+    "regions.name",
+    "grapes.name",
+]
 
 # The line `drop_indices = pd_old[pd_old['vintages.year'] == 'N.V.'].index` is creating a new variable
 # `drop_indices` that stores the indices of rows in the DataFrame `pd_old` where the value in the
 # column `vintages.year` is equal to 'N.V.'.
-drop_indices = pd_old[pd_old['vintages.year'] == 'N.V.'].index
+drop_indices = pd_old[pd_old["vintages.year"] == "N.V."].index
 
 # Drop rows with 'N.V.' in 'vintages.price_euros'
 pd_old.drop(drop_indices, inplace=True)
@@ -56,10 +63,12 @@ pd_old.drop(drop_indices, inplace=True)
 # The code block you provided is creating a scatter plot using the `matplotlib.pyplot` library. Here
 # is a breakdown of what each line does:
 plt.figure(figsize=(10, 9))
-plt.scatter(pd_old['vintages.year'], pd_old['vintages.price_euros'])
-plt.xlabel('Year')
-plt.ylabel('Price (Euros)')
-plt.title('Wine Prices by Year')
+font = {"family": "serif", "weight": "bold", "size": 22}
+plt.rc("font", **font)
+plt.scatter(pd_old["vintages.year"], pd_old["vintages.price_euros"])
+plt.xlabel("Year")
+plt.ylabel("Price (Euros)")
+plt.title("Wine Prices by Year")
 plt.tight_layout()
 
 # `st.pyplot(plt)` is a function from the Streamlit library that allows you to display a Matplotlib

@@ -38,21 +38,29 @@ prices = cursor.execute(query2)
 # The code `pd_prices = pd.DataFrame(prices)` is converting the result set `prices` into a pandas
 # DataFrame. This allows us to manipulate and analyze the data using pandas functions.
 pd_prices = pd.DataFrame(prices)
-pd_prices.columns =['vintages.wine_id', 'vintages.name', 'vintages.year', 'vintages.price_euros', 'regions.name', 'grapes.name']
+pd_prices.columns = [
+    "vintages.wine_id",
+    "vintages.name",
+    "vintages.year",
+    "vintages.price_euros",
+    "regions.name",
+    "grapes.name",
+]
 
 # The code `plt.figure(figsize=(10, 10))` creates a new figure with a specified size of 10 inches by
 # 10 inches. This sets the dimensions of the plot.
 plt.figure(figsize=(10, 10))
-plt.scatter(pd_prices['vintages.name'][::-1], pd_prices['vintages.price_euros'][::-1], color='blue')
-plt.xlabel('Vintages')
-plt.ylabel('Price (Euros)')
-plt.title('Top 10 Wines by Price')
+font = {"family": "serif", "weight": "bold", "size": 22}
+plt.rc("font", **font)
+plt.scatter(
+    pd_prices["vintages.name"][::-1],
+    pd_prices["vintages.price_euros"][::-1],
+    color="blue",
+)
+plt.xlabel("Vintages")
+plt.ylabel("Price (Euros)")
+plt.title("Top 10 Wines by Price")
 plt.xticks(rotation=90)
-font = {'family' : 'normal',
-        'weight' : 'bold',
-        'size'   : 22}
-
-plt.rc('font', **font)
 
 # `st.pyplot(plt)` is a function provided by the Streamlit library that allows you to display a
 # matplotlib plot in your Streamlit app. It takes a matplotlib figure (`plt`) as an argument and
