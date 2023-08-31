@@ -30,7 +30,7 @@ st.markdown(
 
     You can access the project's repository [here](https://github.com/MykolaSenko/Vivino_Market_Analysis).
 
-    The project was carried out by a team of three Junior Data Scientists from [BeCode](https://becode.org) between August 20 and 31, 2023.
+    The project was carried out by a team of three Junior Data Scientists from [BeCode](https://becode.org) between August 28 and 31, 2023.
 
     Team Leader:
     

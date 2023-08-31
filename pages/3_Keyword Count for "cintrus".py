@@ -2,6 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import sqlite3
 import pandas as pd
+
 # The code `connexion = sqlite3.connect("data/vivino.db")` establishes a connection to a SQLite
 # database file named "vivino.db".
 connexion = sqlite3.connect("data/vivino.db")
@@ -36,31 +37,39 @@ keywords = cursor.execute(query1)
 # the SQL query into a pandas DataFrame. This allows us to work with the data in a tabular format and
 # perform various operations on it.
 pd_keywords = pd.DataFrame(keywords)
-pd_keywords.columns =['wine_id', 'vintages_name', 'keyword', 'keyword_count', 'keyword_group']
+pd_keywords.columns = [
+    "wine_id",
+    "vintages_name",
+    "keyword",
+    "keyword_count",
+    "keyword_group",
+]
 
 # The line `citrus = pd_keywords[pd_keywords['keyword'] == 'citrus']` is creating a new DataFrame
 # called `citrus` by filtering the `pd_keywords` DataFrame. It selects only the rows where the value
 # in the 'keyword' column is equal to 'citrus'. This allows us to isolate the data related to the
 # keyword 'citrus' for further analysis or visualization.
-citrus = pd_keywords[pd_keywords['keyword'] == 'citrus']
+citrus = pd_keywords[pd_keywords["keyword"] == "citrus"]
 
 
 # `citrus_top_10 = citrus.nlargest(10, 'keyword_count')` is creating a new DataFrame called
 # `citrus_top_10` by selecting the top 10 rows from the `citrus` DataFrame based on the values in the
 # 'keyword_count' column.
-citrus_top_10 = citrus.nlargest(10, 'keyword_count')
+citrus_top_10 = citrus.nlargest(10, "keyword_count")
 
 # The code `plt.figure(figsize=(10, 10))` is setting the size of the figure (plot) that will be
 # created using matplotlib. The `figsize` parameter takes a tuple of two values, which represent the
 # width and height of the figure in inches. In this case, the figure will have a width of 10 inches
 # and a height of 10 inches.
 plt.figure(figsize=(10, 10))
+font = {"family": "serif", "weight": "bold", "size": 22}
+plt.rc("font", **font)
 # The line `bars = plt.bar(citrus_top_10['vintages_name'].tolist(), citrus_top_10['keyword_count'])`
 # is creating a bar plot using matplotlib.
-bars = plt.bar(citrus_top_10['vintages_name'].tolist(), citrus_top_10['keyword_count'])
+bars = plt.bar(citrus_top_10["vintages_name"].tolist(), citrus_top_10["keyword_count"])
 # The code `plt.xlabel('Vintages')` sets the label for the x-axis of the plot as "Vintages". This
 # label represents the categories or values on the x-axis.
-plt.xlabel('Vintages')
+plt.xlabel("Vintages")
 # The code `plt.ylabel('Keyword Count for "citrus"')` is setting the label for the y-axis of the plot
 # as "Keyword Count for 'citrus'". This label represents the values on the y-axis, which in this case
 # is the count of the keyword "citrus" for each vintage.
@@ -84,9 +93,17 @@ plt.tight_layout()
 # The code `for bar, keyword_count in zip(bars, citrus_top_10['keyword_count']):` is a loop that
 # iterates over each bar in the bar plot and the corresponding keyword count value from the
 # `citrus_top_10` DataFrame.
-for bar, keyword_count in zip(bars, citrus_top_10['keyword_count']):
-    plt.text(bar.get_x() + bar.get_width()/2, keyword_count + 5, round(keyword_count, 2), ha='center', va='bottom', color='black', fontsize=16)
+for bar, keyword_count in zip(bars, citrus_top_10["keyword_count"]):
+    plt.text(
+        bar.get_x() + bar.get_width() / 2,
+        keyword_count + 5,
+        round(keyword_count, 2),
+        ha="center",
+        va="bottom",
+        color="black",
+        fontsize=16,
+    )
 
 # Show the bar plot
 st.pyplot(plt)
-st.write('68 different vintages have at least 10 keywords "citrus".')
+st.write("<h3 style='font-size: 20px;'>68 different vintages have at least 10 keywords 'citrus'.</h3>", unsafe_allow_html=True)

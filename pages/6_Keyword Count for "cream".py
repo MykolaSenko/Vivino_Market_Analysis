@@ -2,6 +2,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import sqlite3
 import pandas as pd
+
 # The code `connexion = sqlite3.connect("data/vivino.db")` establishes a connection to a SQLite
 # database file named "vivino.db".
 connexion = sqlite3.connect("data/vivino.db")
@@ -36,18 +37,24 @@ keywords = cursor.execute(query1)
 # database into a pandas DataFrame. The DataFrame will have the same number of rows as the result set
 # and the columns will be automatically generated based on the column names in the result set.
 pd_keywords = pd.DataFrame(keywords)
-pd_keywords.columns =['wine_id', 'vintages_name', 'keyword', 'keyword_count', 'keyword_group']
+pd_keywords.columns = [
+    "wine_id",
+    "vintages_name",
+    "keyword",
+    "keyword_count",
+    "keyword_group",
+]
 
 # The line `cream = pd_keywords[pd_keywords['keyword'] == 'cream']` is creating a new DataFrame called
 # `cream` by filtering the `pd_keywords` DataFrame. It selects only the rows where the value in the
 # 'keyword' column is equal to 'cream'.
-cream = pd_keywords[pd_keywords['keyword'] == 'cream']
+cream = pd_keywords[pd_keywords["keyword"] == "cream"]
 
 # The line `cream_top_10 = cream.nlargest(10, 'keyword_count')` is creating a new DataFrame called
 # `cream_top_10` by selecting the top 10 rows from the `cream` DataFrame based on the values in the
 # 'keyword_count' column. The rows are selected in descending order, so the top 10 rows will have the
 # highest values in the 'keyword_count' column.
-cream_top_10 = cream.nlargest(10, 'keyword_count')
+cream_top_10 = cream.nlargest(10, "keyword_count")
 
 # The line `plt.figure(figsize=(10, 10))` is setting the size of the figure (plot) that will be
 # created. The `figsize` parameter takes a tuple of two values, which represent the width and height
@@ -56,12 +63,14 @@ cream_top_10 = cream.nlargest(10, 'keyword_count')
 plt.figure(figsize=(10, 10))
 # The line `bars = plt.bar(cream_top_10['vintages_name'].tolist(), cream_top_10['keyword_count'])` is
 # creating a bar plot using the `plt.bar()` function.
-bars = plt.bar(cream_top_10['vintages_name'].tolist(), cream_top_10['keyword_count'])
+bars = plt.bar(cream_top_10["vintages_name"].tolist(), cream_top_10["keyword_count"])
+font = {"family": "serif", "weight": "bold", "size": 22}
+plt.rc("font", **font)
 
 # `plt.xlabel('Vintages')` is setting the label for the x-axis of the plot. In this case, it is
 # setting the label to "Vintages". This label helps to provide information about the data being
 # plotted on the x-axis, which in this case represents different vintages of wines.
-plt.xlabel('Vintages')
+plt.xlabel("Vintages")
 
 # The line `plt.ylabel('Keyword Count for "cream"')` is setting the label for the y-axis of the plot.
 # In this case, it is setting the label to "Keyword Count for 'cream'". This label helps to provide
@@ -89,9 +98,17 @@ plt.tight_layout()
 # The code `for bar, keyword_count in zip(bars, cream_top_10['keyword_count']):` is a for loop that
 # iterates over each bar and keyword count in the `bars` and `cream_top_10['keyword_count']`
 # variables, respectively.
-for bar, keyword_count in zip(bars, cream_top_10['keyword_count']):
-    plt.text(bar.get_x() + bar.get_width()/2, keyword_count + 5, round(keyword_count, 2), ha='center', va='bottom', color='black', fontsize=16)
+for bar, keyword_count in zip(bars, cream_top_10["keyword_count"]):
+    plt.text(
+        bar.get_x() + bar.get_width() / 2,
+        keyword_count + 5,
+        round(keyword_count, 2),
+        ha="center",
+        va="bottom",
+        color="black",
+        fontsize=16,
+    )
 
 # Show the bar plot
 st.pyplot(plt)
-st.write('73 different vintages have at least 10 keywords "green apple".')
+st.write("<h3 style='font-size: 20px;'>73 different vintages have at least 10 keywords 'cream'.</h3>", unsafe_allow_html=True)

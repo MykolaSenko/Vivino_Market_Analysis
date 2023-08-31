@@ -34,27 +34,46 @@ ORDER BY keywords_wine.count DESC
 keywords = cursor.execute(query1)
 
 pd_keywords = pd.DataFrame(keywords)
-pd_keywords.columns =['wine_id', 'vintages_name', 'keyword', 'keyword_count', 'keyword_group']
+pd_keywords.columns = [
+    "wine_id",
+    "vintages_name",
+    "keyword",
+    "keyword_count",
+    "keyword_group",
+]
 
 # Calculate the maximum value for each keyword
-max_values = pd_keywords.groupby('keyword')['keyword_count'].max()
+max_values = pd_keywords.groupby("keyword")["keyword_count"].max()
 
 # The code block you provided is responsible for creating a bar chart using the `matplotlib.pyplot`
-# library. 
+# library.
 plt.figure(figsize=(10, 10))
-bars = plt.bar(pd_keywords['keyword'], pd_keywords['keyword_count'])
-plt.xlabel('Keywords')
-plt.ylabel('Keyword Count')
-plt.title('Keyword Counts for Wines')
+font = {"family": "monospace", "weight": "bold", "size": 22}
+plt.rc("font", **font)
+bars = plt.bar(pd_keywords["keyword"], pd_keywords["keyword_count"])
+plt.xlabel("Keywords")
+plt.ylabel("Keyword Count")
+plt.title("Keyword Counts for Wines")
 plt.xticks(rotation=45)
 plt.tight_layout()
 
+
 # Adding maximum value labels on top of the bars
-for bar, keyword in zip(bars, pd_keywords['keyword']):
+for bar, keyword in zip(bars, pd_keywords["keyword"]):
     if max_values[keyword] == bar.get_height():
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 5, round(yval, 2), ha='center', va='bottom', color='black', fontsize=16)
+        plt.text(
+            bar.get_x() + bar.get_width() / 2,
+            yval + 5,
+            round(yval, 2),
+            ha="center",
+            va="bottom",
+            color="black",
+            fontsize=16,
+        )
 
 # Show the histogram
 st.pyplot(plt)
-st.write('1205 different vintages have at least 10 keywords "coffee", "toast", "green apple", "cream" and "citrus".')
+import streamlit as st
+
+st.write("<h3 style='font-size: 20px;'>1205 different vintages have at least 10 keywords 'coffee', 'toast', 'green apple', 'cream', and 'citrus'.</h3>", unsafe_allow_html=True)
