@@ -55,7 +55,7 @@ Team Leader:
     
 Weiying Zhao: [LinkedIn](https://www.linkedin.com/in/weiying-zhao-a4a307241/), [GitHub](https://github.com/Winzhao0545)
     
-    Team Members:
+Team Members:
     
 Bram Michielsen: [LinkedIn](https://www.linkedin.com/in/brammichielsen/), [GitHub](https://github.com/BramMichielsen)
     
