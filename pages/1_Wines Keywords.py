@@ -41,7 +41,7 @@ max_values = pd_keywords.groupby('keyword')['keyword_count'].max()
 
 # The code block you provided is responsible for creating a bar chart using the `matplotlib.pyplot`
 # library. 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 10))
 bars = plt.bar(pd_keywords['keyword'], pd_keywords['keyword_count'])
 plt.xlabel('Keywords')
 plt.ylabel('Keyword Count')
@@ -53,7 +53,7 @@ plt.tight_layout()
 for bar, keyword in zip(bars, pd_keywords['keyword']):
     if max_values[keyword] == bar.get_height():
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval + 5, round(yval, 2), ha='center', va='bottom', color='black', fontsize=9)
+        plt.text(bar.get_x() + bar.get_width()/2, yval + 5, round(yval, 2), ha='center', va='bottom', color='black', fontsize=16)
 
 # Show the histogram
 st.pyplot(plt)

@@ -86,7 +86,7 @@ plt.tight_layout()
 # iterates over each bar and keyword_count value in the `bars` and `coffee_top_10['keyword_count']`
 # lists, respectively.
 for bar, keyword_count in zip(bars, coffee_top_10['keyword_count']):
-    plt.text(bar.get_x() + bar.get_width()/2, keyword_count + 5, round(keyword_count, 2), ha='center', va='bottom', color='black', fontsize=9)
+    plt.text(bar.get_x() + bar.get_width()/2, keyword_count + 5, round(keyword_count, 2), ha='center', va='bottom', color='black', fontsize=16)
 
 # Show the bar plot
 st.pyplot(plt)

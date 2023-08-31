@@ -85,7 +85,7 @@ plt.tight_layout()
 # iterates over each bar in the bar plot and the corresponding keyword count value from the
 # `citrus_top_10` DataFrame.
 for bar, keyword_count in zip(bars, citrus_top_10['keyword_count']):
-    plt.text(bar.get_x() + bar.get_width()/2, keyword_count + 5, round(keyword_count, 2), ha='center', va='bottom', color='black', fontsize=9)
+    plt.text(bar.get_x() + bar.get_width()/2, keyword_count + 5, round(keyword_count, 2), ha='center', va='bottom', color='black', fontsize=16)
 
 # Show the bar plot
 st.pyplot(plt)
