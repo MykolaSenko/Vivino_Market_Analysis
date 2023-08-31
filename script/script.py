@@ -1,12 +1,11 @@
 import sqlite3
+import csv
 
 # Connect to the SQLite database
-conn = sqlite3.connect("sqlite:///../data/vivino.db")
+conn = sqlite3.connect("data/vivino.db")
 cursor = conn.cursor()
 
 # Query to Get Vintage Ratings by Country and Year:
-# This query calculates the total number of ratings for each combination of country, year, and vintage.
-
 query_vintage_ratings = """
 SELECT
     c.name AS country,
@@ -25,8 +24,6 @@ GROUP BY
 """
 
 # Query to Calculate Yearly Growth in Ratings:
-# This query calculates the growth rate of ratings from one year to the next for each country.
-
 query_rating_growth = """
 WITH ratings_by_year AS (
     SELECT
@@ -105,6 +102,27 @@ results_vintage_avg = cursor.fetchall()
 # Close the database connection
 conn.close()
 
+# Write the results to CSV files
+with open("data/vintage_ratings.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["country", "year", "total_ratings"])
+    writer.writerows(results_vintage_ratings)
+
+with open("data/rating_growth.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["country", "current_year", "current_ratings", "previous_year", "previous_ratings", "rating_growth"])
+    writer.writerows(results_rating_growth)
+
+with open("data/avg_wine_rating.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["country", "avg_wine_rating"])
+    writer.writerows(results_country_avg)
+
+with open("data/avg_vintage_rating.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow(["country", "avg_vintage_rating"])
+    writer.writerows(results_vintage_avg)
+
 # Print or process the results as needed
 print("Vintage Ratings by Country and Year:")
 for row in results_vintage_ratings:
@@ -118,6 +136,6 @@ print("\nAverage Wine Ratings by Country:")
 for row in results_country_avg:
     print(row)
 
-print("\nAverage Wine Ratings by Vintage:")
+print("\nAverage Vintage Ratings by Country:")
 for row in results_vintage_avg:
     print(row)
