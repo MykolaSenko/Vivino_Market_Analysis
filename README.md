@@ -37,7 +37,7 @@ To run the Streamlit app, use the `streamlit run` command in the command line. T
 
 where `main_page.py` is the name of the Python script that contains your Streamlit app. You need to run this command from the root folder of your project.
 
-To run the Stremlit on-line push this [link](https://mykolasenko-vivino-market-analysis-main-page-mykola-idyaka.streamlit.app/)
+To run the Stremlit on-line push this [link](https://mykolasenko-vivino-market-analysis-main-page-efdziq.streamlit.app/)
 
 To navigate to other materials in the folder, you can use the cd command. For example, to navigate to the pages folder, you would run the following command:
 
