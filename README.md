@@ -20,28 +20,23 @@ Find all the wines that have the keywords "coffee", "toast", "green apple", "cre
 Find the average wine rating for each country.
 Show the average wine rating for each country.
 Analyze the correlation between the age of wine and its price.
-
 ## Installation
-
 1. Clone [Vivino_Market_Analysis](https://github.com/MykolaSenko/Vivino_Market_Analysis) repository
 2. Change directory to the root of the repository
 3. Install required libraries by running `pip install -r requirements.txt`
 
 ## Usage
+To run the Streamlit app, use the **streamlit run** command in the command line. The syntax is:
 
-## Usage
+`streamlit run main_page.py`
 
-To run the Streamlit app, use the `streamlit run` command in the command line. The syntax is:
+where **main_page.py** is the name of the Python script that contains your Streamlit app. You need to run this command from the root folder of your project.
 
-**streamlit run main_page.py**
-
-where `main_page.py` is the name of the Python script that contains your Streamlit app. You need to run this command from the root folder of your project.
-
-To run the Stremlit on-line push this [link](https://mykolasenko-vivino-market-analysis-main-page-mykola-idyaka.streamlit.app/)
+To run the Stremlit on-line push this [link](https://mykolasenko-vivino-market-analysis-main-page-efdziq.streamlit.app/)
 
 To navigate to other materials in the folder, you can use the cd command. For example, to navigate to the pages folder, you would run the following command:
 
-**cd pages**
+`cd pages`
 
 Once you are in the desired folder, you can see the files and folders in the terminal.
 
